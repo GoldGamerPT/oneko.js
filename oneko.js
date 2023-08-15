@@ -2,8 +2,8 @@
 
 (function oneko() {
   const nekoEl = document.createElement("div");
-  let nekoPosX = 32;
-  let nekoPosY = 32;
+  let nekoPosX = 100;
+  let nekoPosY = 100;
   let mousePosX = 0;
   let mousePosY = 0;
   const isReduced = window.matchMedia(`(prefers-reduced-motion: reduce)`) === true || window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
@@ -17,67 +17,55 @@
   let idleAnimationFrame = 0;
   const nekoSpeed = 10;
   const spriteSets = {
-    idle: [[-3, -3]],
+    idle: [[-2, -7]],
     alert: [[-7, -3]],
-    scratchSelf: [
-      [-5, 0],
-      [-6, 0],
-      [-7, 0],
-    ],
-    scratchWallN: [
-      [0, 0],
-      [0, -1],
-    ],
-    scratchWallS: [
-      [-7, -1],
-      [-6, -2],
-    ],
-    scratchWallE: [
-      [-2, -2],
-      [-2, -3],
-    ],
-    scratchWallW: [
-      [-4, 0],
-      [-4, -1],
-    ],
-    tired: [[-3, -2]],
-    sleeping: [
-      [-2, 0],
-      [-2, -1],
-    ],
     N: [
-      [-1, -2],
-      [-1, -3],
-      [-1, -1],
+      [0, 0],
+      [-1, 0],
+      [-2, 0],
+      [-3, 0],
     ],
     NE: [
-      [0, -2],
-      [0, -3],
-      
-    ],
-    E: [
-      [-3, 0],
+      [0, -1],
+      [-1, -1],
+      [-2, -1],
       [-3, -1],
     ],
+    E: [
+      [-0, -2],
+      [-1, -2],
+      [-2, -2],
+      [-3, -2],
+    ],
     SE: [
-      [-5, -1],
-      [-5, -2],
+      [0, -3],
+      [-1, -3],
+      [-2, -3],
+      [-3, -3],
     ],
     S: [
-      [-6, -3],
-      [-7, -2],
+      [0, -4],
+      [-1, -4],
+      [-2, -4],
+      [-3, -4],
     ],
     SW: [
-      [-5, -3],
-      [-6, -1],
+      [0, -5],
+      [-1, -5],
+      [-2, -5],
+      [-3, -5],
     ],
     W: [
-      [-4, -2],
-      [-4, -3],
+      [0, -6],
+      [-1, -6],
+      [-2, -6],
+      [-3, -6],
     ],
     NW: [
-      [-1, 0],
-      [-1, -1],
+      [0, -7],
+      [-1, -7],
+      [-2, -7],
+      [-3, -7],
     ],
   };
 
@@ -89,8 +77,8 @@
     nekoEl.style.pointerEvents = "none";
     nekoEl.style.backgroundImage = "url('./oneko.gif')";
     nekoEl.style.imageRendering = "pixelated";
-    nekoEl.style.left = `${nekoPosX - 16}px`;
-    nekoEl.style.top = `${nekoPosY - 16}px`;
+    nekoEl.style.left = `${nekoPosX - 50}px`;
+    nekoEl.style.top = `${nekoPosY - 50}px`;
     nekoEl.style.zIndex = Number.MAX_VALUE;
 
     document.body.appendChild(nekoEl);
@@ -105,7 +93,7 @@
 
   function setSprite(name, frame) {
     const sprite = spriteSets[name][frame % spriteSets[name].length];
-    nekoEl.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
+    nekoEl.style.backgroundPosition = `${sprite[0] * 100}px ${sprite[1] * 100}px`;
   }
 
   function resetIdleAnimation() {
@@ -122,19 +110,7 @@
       Math.floor(Math.random() * 200) == 0 &&
       idleAnimation == null
     ) {
-      let avalibleIdleAnimations = ["sleeping", "scratchSelf"];
-      if (nekoPosX < 32) {
-        avalibleIdleAnimations.push("scratchWallW");
-      }
-      if (nekoPosY < 32) {
-        avalibleIdleAnimations.push("scratchWallN");
-      }
-      if (nekoPosX > window.innerWidth - 32) {
-        avalibleIdleAnimations.push("scratchWallE");
-      }
-      if (nekoPosY > window.innerHeight - 32) {
-        avalibleIdleAnimations.push("scratchWallS");
-      }
+      let avalibleIdleAnimations = [];
       idleAnimation =
         avalibleIdleAnimations[
           Math.floor(Math.random() * avalibleIdleAnimations.length)
@@ -142,26 +118,6 @@
     }
 
     switch (idleAnimation) {
-      case "sleeping":
-        if (idleAnimationFrame < 8) {
-          setSprite("tired", 0);
-          break;
-        }
-        setSprite("sleeping", Math.floor(idleAnimationFrame / 4));
-        if (idleAnimationFrame > 192) {
-          resetIdleAnimation();
-        }
-        break;
-      case "scratchWallN":
-      case "scratchWallS":
-      case "scratchWallE":
-      case "scratchWallW":
-      case "scratchSelf":
-        setSprite(idleAnimation, idleAnimationFrame);
-        if (idleAnimationFrame > 9) {
-          resetIdleAnimation();
-        }
-        break;
       default:
         setSprite("idle", 0);
         return;
