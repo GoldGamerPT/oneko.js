@@ -2,8 +2,8 @@
 
 (function oneko() {
   const nekoEl = document.createElement("div");
-  let nekoPosX = 100;
-  let nekoPosY = 100;
+  let nekoPosX = 32;
+  let nekoPosY = 32;
   let mousePosX = 0;
   let mousePosY = 0;
   const isReduced = window.matchMedia(`(prefers-reduced-motion: reduce)`) === true || window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
@@ -77,8 +77,8 @@
     nekoEl.style.pointerEvents = "none";
     nekoEl.style.backgroundImage = "url('./oneko.gif')";
     nekoEl.style.imageRendering = "pixelated";
-    nekoEl.style.left = `${nekoPosX - 50}px`;
-    nekoEl.style.top = `${nekoPosY - 50}px`;
+    nekoEl.style.left = `${nekoPosX - 16}px`;
+    nekoEl.style.top = `${nekoPosY - 16}px`;
     nekoEl.style.zIndex = Number.MAX_VALUE;
 
     document.body.appendChild(nekoEl);
@@ -93,7 +93,7 @@
 
   function setSprite(name, frame) {
     const sprite = spriteSets[name][frame % spriteSets[name].length];
-    nekoEl.style.backgroundPosition = `${sprite[0] * 100}px ${sprite[1] * 100}px`;
+    nekoEl.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
   }
 
   function resetIdleAnimation() {
