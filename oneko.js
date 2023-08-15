@@ -15,7 +15,7 @@
   let idleTime = 0;
   let idleAnimation = null;
   let idleAnimationFrame = 0;
-  const nekoSpeed = 60;
+  const nekoSpeed = 10;
   const spriteSets = {
     idle: [[-3, -3]],
     alert: [[-7, -3]],
@@ -83,8 +83,8 @@
 
   function create() {
     nekoEl.id = "oneko";
-    nekoEl.style.width = "32px";
-    nekoEl.style.height = "32px";
+    nekoEl.style.width = "100px";
+    nekoEl.style.height = "100px";
     nekoEl.style.position = "fixed";
     nekoEl.style.pointerEvents = "none";
     nekoEl.style.backgroundImage = "url('./oneko.gif')";
